@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ibm.shib.dao.EmployeeMapper">
+ 
+ <resultMap type="employee" id="result">
+ 		<id property="empId" column="emp_id" />
+		<result property="fullName" column="fullname" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="hobbies" column="hobbies" />
+		<result property="country" column="country" />
+		<result property="address" column="address" />
+ </resultMap>
+ 
+ <select id="getAllEmployees" resultType="Employee" resultMap="result" >
+ 	Select * from mybatisdb.employee
+ </select>
+ 
+ <insert id="insertEmployee" parameterType="employee" keyProperty="emp_id" useGeneratedKeys="true">
+ 	insert into mybatisdb.employee(fullname, email, gender, hobbies, country, address)
+ 		values(#{fullName}, #{email}, #{gender}, #{hobbies}, #{country}, #{address})
+ </insert>
+ 
+ <delete id="deleteEmployee" parameterType="int">
+ 	delete from mybatisdb.employee where emp_id = #{empId}
+ </delete>
+ 
+ <select id="findByempId" parameterType="int" resultType="Employee" resultMap="result">
+ 	select * from mybatisdb.employee where emp_id = #{empId}
+ </select>
+ 
+ <update id="updateEmployee" parameterType="employee">
+ 	update mybatisdb.employee set fullName = #{fullName}, email = #{email}, gender = #{gender}, hobbies = #{hobbies}, country = #{country}, address = #{address}
+ 	where emp_id= #{empId}
+ </update>
+ 
+ 
+ </mapper>
+ 
